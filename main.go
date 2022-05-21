@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -16,6 +18,9 @@ func main() {
 		false,
 		"Keep running after error if true")
 	flag.Parse()
+
+	// Load vars from .env
+	godotenv.Load()
 
 	// Get managed repos from environment variables
 	root := os.Getenv("MG_ROOT")
