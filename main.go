@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"os/exec"
+	"strings"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 
 	// Get managed repos from environment variables
 	root := os.Getenv("MG_ROOT")
-	if root[len(root) - 1] != '/' {
+	if root[len(root)-1] != '/' {
 		root += "/"
 	}
 
@@ -44,7 +44,7 @@ func main() {
 
 	for _, r := range repos {
 		// Go to the repo's directory
-		os.Chdir(r);
+		os.Chdir(r)
 
 		// Print the command
 		fmt.Printf("[%s] %s\n", r, command_string)
