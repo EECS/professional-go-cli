@@ -95,3 +95,13 @@ func RunMultiGit(command string, ignoreErrors bool, mgRoot string, mgRepos strin
 	output = string(out)
 	return
 }
+
+func ConfigureGit() (err error) {
+	err = exec.Command("git", "config", "--global", "user.email", "jacobshnn@gmail.com").Run()
+	if err != nil {
+		return
+	}
+
+	err = exec.Command("git", "config", "--global", "user.name", "EECS").Run()
+	return
+}
