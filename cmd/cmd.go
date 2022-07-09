@@ -9,9 +9,8 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
-
-var ignoreErrors bool
 
 // rootCmd represents the base command when called without any sub-commands
 var rootCmd = &cobra.Command{
@@ -35,7 +34,7 @@ MG_REPOS: list of repository names to operate on`,
 			repoNames = strings.Split(os.Getenv("MG_REPOS"), ",")
 		}
 
-		repoManager, err := repo_manager.NewRepoManager(root, repoNames, ignoreErrors)
+		repoManager, err := repo_manager.NewRepoManager(root, repoNames, viper.GetBool("ignore-errors"))
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -54,12 +53,16 @@ MG_REPOS: list of repository names to operate on`,
 }
 
 func init() {
-	rootCmd.Flags().BoolVar(
-		&ignoreErrors,
+	rootCmd.Flags().Bool(
 		"ignore-errors",
 		false,
 		`will continue executing the command for all repos if ignore-errors
                  is true otherwise it will stop execution when an error occurs`)
+
+	err := viper.BindPFlag("ignore-errors", rootCmd.Flags().Lookup("ignore-errors"))
+	if err != nil {
+		panic("Unable to bind flag")
+	}
 }
 
 func Execute() {
