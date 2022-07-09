@@ -1,0 +1,3 @@
+multi_git_root = "../../multi-git"
+multi_git_repos = "test_repo1,test_repo2"
+multi_git_ignore-errors = true
